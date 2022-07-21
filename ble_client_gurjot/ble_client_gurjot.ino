@@ -100,7 +100,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
 }; // MyAdvertisedDeviceCallbacks
 
  
-//When the BLE Server sends a new temperature reading with the notify property
+//When the BLE Server sends a new smoke reading with the notify property
 static void smokeNotifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
                                         uint8_t* pData, size_t length, bool isNotify) {
   //store temperature value
@@ -160,4 +160,9 @@ void loop() {
   
   }
   delay(1000); // Delay a second between loops.
+
+
+
+
+
 }
