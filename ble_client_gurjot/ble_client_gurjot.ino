@@ -80,6 +80,7 @@ bool connectToServer(BLEAddress pAddress) {
     soilCharacteristic->registerForNotify(soilNotifyCallback);
     smokeCharacteristic->registerForNotify(smokeNotifyCallback);
     
+    
     return true;
 }
 /**
