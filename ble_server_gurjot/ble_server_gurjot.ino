@@ -116,15 +116,16 @@ void BLE()
   {
     delay(500);                  // give the bluetooth stack the chance to get things ready
     pServer->startAdvertising(); // restart advertising
-    Serial.println("Start Advertising");
-    Serial.println("Disconnecting");
+    Serial.println("////===== Server Disconnected =====////");
+    Serial.println("////===== Started Re-Advertising =====////");
+    
     oldDeviceConnected = deviceConnected;
   }
   // connecting
   if (deviceConnected && !oldDeviceConnected)
   {
-    Serial.println("Connecting");
-    // do stuff here on connecting
+    Serial.println("Connected to Server, First Time");
+    // first connection
     oldDeviceConnected = deviceConnected;
   }
 }
