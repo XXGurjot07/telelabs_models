@@ -52,7 +52,7 @@ void setup()
   pinMode(ONBOARD_LED, OUTPUT);
 
   // creating server
-  BLEDevice::init("SensorNodeESP32_1");
+  BLEDevice::init("esp32S");
   BLEServer *pServer = BLEDevice::createServer();
   pServer->setCallbacks(new myServerCallbacks());
 
