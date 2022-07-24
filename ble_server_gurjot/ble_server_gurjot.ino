@@ -12,7 +12,9 @@
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 
-BLECharacteristic *pCharacteristic;
+BLEServer* pServer = NULL;
+BLECharacteristic* pCharacteristic = NULL;
+
 
 #define SERVICE_UUID "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
 BLECharacteristic soilCharacteristics("f78ebbff-c8b7-4107-93de-889a6a06d408", BLECharacteristic::PROPERTY_NOTIFY);
