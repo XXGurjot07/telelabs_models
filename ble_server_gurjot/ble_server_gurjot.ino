@@ -48,11 +48,11 @@ class myServerCallbacks : public BLEServerCallbacks
 void setup()
 {
   Serial.begin(115200);
-  Serial.println("Starting BLE work!");
+  Serial.println("Starting Bluetooth Low Energy Server!");
   pinMode(ONBOARD_LED, OUTPUT);
 
   // creating server
-  BLEDevice::init("SensorNodeESP32");
+  BLEDevice::init("SensorNodeESP32_1");
   BLEServer *pServer = BLEDevice::createServer();
   pServer->setCallbacks(new myServerCallbacks());
 
@@ -68,6 +68,7 @@ void setup()
   smokeDescriptor.setValue("Smoke Density");
   smokeCharacteristics.addDescriptor(new BLE2902());
 
+  //start service, start advertising service through getAdvertising->start()
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
@@ -82,14 +83,14 @@ void loop()
 {
   analogReadResolution(10);
   BLE();
-  delay(2000);
+  delay(1000);
 }
 
 void BLE()
 {
   if (deviceConnected)
   {
-
+    digitalWrite(ONBOARD_LED, HIGH);
     soilval = analogRead(soil_gpio);
     smokeval = analogRead(smoke_gpio);
 
@@ -107,25 +108,33 @@ void BLE()
     smokeCharacteristics.notify();
     Serial.print(" - Smoke Density: ");
     Serial.println(smokeval);
-    Serial.print("Connection Status : ");
-    digitalWrite(ONBOARD_LED, HIGH);
-    delay(500);
+    Serial.println("Connection Status : True");
+    delay(400);
+    
     // Serial.println(deviceConnected);
   }
   if (!deviceConnected && oldDeviceConnected)
   {
-    delay(500);                  // give the bluetooth stack the chance to get things ready
+    blink();                 // give the bluetooth stack the chance to get things ready
     pServer->startAdvertising(); // restart advertising
-    Serial.println("////===== Server Disconnected =====////");
-    Serial.println("////===== Started Re-Advertising =====////");
-    
+    Serial.println("//// Server Disconnected ////");
+    Serial.println("\n------------------------------------------------");
+    Serial.println(" \t:::: Re-Advertising ON :::: ");
+    Serial.println("------------------------------------------------\n");
+    Serial.println("");
     oldDeviceConnected = deviceConnected;
   }
   // connecting
   if (deviceConnected && !oldDeviceConnected)
   {
-    Serial.println("Connected to Server, First Time");
+    Serial.println("//// Connected to Server ////");
     // first connection
     oldDeviceConnected = deviceConnected;
   }
 }
+void blink(){
+  delay(500);
+  digitalWrite(ONBOARD_LED,HIGH);
+  delay(100);
+  digitalWrite(ONBOARD_LED,LOW);
+  }
