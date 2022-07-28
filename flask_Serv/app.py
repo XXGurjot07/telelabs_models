@@ -62,11 +62,11 @@ def gen_frames():  # generate frame by frame from camera
 def index():
     return render_template('index.html')
 
-@app.route('/vslive')
+@app.route('/video-stream')
 def vslive():
     return render_template('vidstream.html')
 
-@app.route('/vslive/video_feed')
+@app.route('/video-stream/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -110,9 +110,18 @@ def tasks():
 
 
 
-#@app.route('/live-inference/')
-#@app.route('/database/')
-#@app.route('/auxiliary-sensors/')
+@app.route('/live-inference')
+def live_inference():
+    return "live-inference"
+@app.route('/view-database')
+def view_database():
+    return "view-database"
+@app.route('/auxiliary-sensors')
+def auxiliary_sensors():
+    return "auxiliary-sensors"
+@app.route('/about-project')
+def about_project():
+    return "about-project"
 
 
 
